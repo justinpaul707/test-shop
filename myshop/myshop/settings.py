@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -57,10 +58,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
-
-CART_SESSION_ID = 'cart'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -110,5 +107,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+CART_SESSION_ID = 'cart'
+
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'XXXXXXXX'
+BRAINTREE_PUBLIC_KEY = 'XXXXXXXX'
+BRAINTREE_PRIVATE_KEY = 'XXXXXXX'
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
